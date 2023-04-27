@@ -10,40 +10,48 @@ int main() {
         L = Andi terlambat
         N = Andi tidak terlambat
     */
-    float pH; // inputan probabilitas hari hujan
-        printf("Masukkan nilai probabilitas hari hujan: ");
-        scanf("%f", &pH);
+    float pH, pT, pP_H, pP_T, pL_HP, pL_TQ, pL_HQ, pL_TP, pN_HP, pN_TQ, pN_HQ, pN_TP;
 
-    float pT = 2.0 / 3.0; // probabilitas hari tidak hujan
+    //inputan
 
-    float pP_H = 0.5; // probabilitas lalu lintas padat jika hari hujan
+    printf("Masukkan nilai probabilitas hari hujan: ");
+    scanf("%f", &pH);
+
+    printf("Masukkan nilai probabilitas lalu lintas padat jika hari hujan: ");
+    scanf("%f", &pP_H);
+
+    printf("Masukkan nilai probabilitas lalu lintas padat jika hari tidak hujan: ");
+    scanf("%f", &pP_T);
     
-    float pP_T; // inputan probabilitas lalu lintas padat jika hari tidak hujan
-        printf("Masukkan nilai probabilitas lalu lintas padat jika hari tidak hujan: ");
-        scanf("%f", &pP_T);
+    printf("Masukkan nilai probabilitas Andi terlambat jika hari hujan dan lalu lintas padat: ");
+    scanf("%f", &pL_HP);
 
-    float pL_HP = 0.5; // probabilitas Andi terlambat jika hari hujan dan lalu lintas padat
+    printf("Masukkan nilai probabilitas Andi terlambat jika hari tidak hujan dan lalu lintas tidak padat: ");
+    scanf("%f", &pL_TQ);
 
-    float pL_TQ = 0.125; // probabilitas Andi terlambat jika hari tidak hujan dan lalu lintas tidak padat
-    
-    float pL_HQ = 0.25; // probabilitas Andi terlambat jika hari hujan dan lalu lintas tidak padat
+    printf("Masukkan nilai probabilitas Andi terlambat jika hari hujan dan lalu lintas tidak padat: ");
+    scanf("%f", &pL_HQ);
 
-    float pL_TP = 0.25; // probabilitas Andi terlambat jika hari tidak hujan dan lalu lintas padat
+    printf("Masukkan nilai probabilitas Andi terlambat jika hari tidak hujan dan lalu lintas padat: ");
+    scanf("%f", &pL_TP);
 
-    float pN_HP = 0.75; // probabilitas Andi tidak terlambat jika hari hujan dan lalu lintas padat
+    //batas
+    // probabilitas hari tidak hujan
+    pT = 1.0 - pH;
 
-    float pN_TQ = 0.75; // probabilitas Andi tidak terlambat jika hari tidak hujan dan lalu lintas tidak padat
+    // probabilitas Andi tidak terlambat jika hari hujan dan lalu lintas padat
+    pN_HP = 1.0 - pL_HP;
 
-    float pN_HQ ; // inputan probabilitas Andi tidak terlambat jika hari hujan dan lalu lintas tidak padat
-        printf("Masukkan nilai probabilitas Andi tidak terlambat jika hari hujan dan lalu lintas tidak padat: ");
-        scanf("%f", &pN_HQ);
+    // probabilitas Andi tidak terlambat jika hari tidak hujan dan lalu lintas tidak padat
+    pN_TQ = 1.0 - pL_TQ;
+    //probabilitas Andi tidak terlambat jika hari hujan dan lalu lintas tidak padat
+    pN_HQ = 1.0 - pL_HQ;
 
-    float pN_TP ; // inputan probabilitas Andi tidak terlambat jika hari tidak hujan dan lalu lintas padat
-        printf("Masukkan nilai probabilitas Andi tidak terlambat jika hari tidak hujan dan lalu lintas padat: ");
-        scanf("%f", &pN_TP);
+    //probabilitas Andi tidak terlambat jika hari tidak hujan dan lalu lintas padat
+    pN_TP = 1.0 - pL_TP;
 
     // [A] hitung probabilitas Andi tidak terlambat pada kondisi hari tidak hujan dan lalu lintas padat
-    float pNTP = 1.0 - pL_TP; // probabilitas Andi tidak terlambat jika hari tidak hujan dan lalu lintas padat
+    float pNTP = pN_TP; // probabilitas Andi tidak terlambat jika hari tidak hujan dan lalu lintas padat
 
     // hitung probabilitas Andi akan terlambat
     float pL = pH*pP_H*pL_HP + pT*(1.0-pP_T)*pL_TQ + pH*(1.0-pP_H)*pL_HQ + pT*pP_T*pL_TP; // probabilitas Andi terlambat
@@ -53,7 +61,7 @@ int main() {
 
     // tampilkan hasil
     printf("\n===Jawaban===\n\n");
-    printf("Probabilitas Andi tidak terlambat pada kondisi hari tidak hujan dan lalu lintas padat: %.2f\n", pNTP);
-    printf("Probabilitas Andi akan terlambat: %.2f\n", pL);
-    printf("Probabilitas pada waktu itu hari hujan jika diketahui Andi datang terlambat: %.2f\n",pHL);
+    printf("Probabilitas Andi tidak terlambat pada kondisi hari tidak hujan dan lalu lintas padat: %.5f\n", pNTP);
+    printf("Probabilitas Andi akan terlambat: %.5f\n", pL);
+    printf("Probabilitas pada waktu itu hari hujan jika diketahui Andi datang terlambat: %.5f\n",pHL);
 }
